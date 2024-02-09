@@ -10,6 +10,14 @@
 	"requires": {
 		"MediaWiki": ">= 1.39.0"
 	},
+	"attributes": {
+		"VisualEditor": {
+			"PluginModules":
+				[
+					"ext.visualEditorPlus.inlineTextInspector"
+				]
+		}
+	},
 	"MessagesDirs": {
 		"VisualEditorPlus": "i18n"
 	},
@@ -17,6 +25,34 @@
 		"MediaWiki\\Extension\\VisualEditorPlus\\": "src/"
 	},
 	"ResourceModules": {
+		"ext.visualEditorPlus.bootstrap": {
+			"scripts": [
+				"ext.visualEditorPlus.bootstrap.js"
+			]
+		},
+		"ext.visualEditorPlus.registry": {
+			"scripts": [
+				"ext.visualEditorPlus.registry.js"
+			],
+			"dependencies": [
+				"oojs",
+				"ext.visualEditorPlus.bootstrap"
+			]
+		},
+		"ext.visualEditorPlus.inlineTextInspector": {
+			"scripts": [
+				"ext.visualEditorPlus.inlineTextInspector/InlineTextInspectorElement.js",
+				"ext.visualEditorPlus.inlineTextInspector/InlineTextInspector.js",
+				"ext.visualEditorPlus.inlineTextInspector/bootstrap.js"
+			],
+			"styles": [
+				"ext.visualEditorPlus.inlineTextInspector/styles.less"
+			],
+			"dependencies": [
+				"ext.visualEditor.core",
+				"ext.visualEditorPlus.registry"
+			]
+		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
