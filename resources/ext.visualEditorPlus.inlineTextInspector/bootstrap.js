@@ -6,11 +6,14 @@ mw.hook( 've.activationComplete' ).add( function () {
 
 function registerInlineTextInspectors( target ) {
 	if ( target.getSurface().getMode() === 'visual' ) {
+		var $popupTarget = $( '<div>' );
+		$( '.ve-init-target' ).append( $popupTarget );
 		var inspectorPopup = new ext.visualEditorPlus.ui.InlineTextInspector( {
 			$overlay: true,
+			$container: $popupTarget
 		} );
 		inspectorPopup.setTarget( target );
-		$( document.body ).append( inspectorPopup.$element );
+		$popupTarget.append( inspectorPopup.$element );
 
 		for ( var key in ext.visualEditorPlus.registry.inlineTextInspectors.registry ) {
 			var cls = ext.visualEditorPlus.registry.inlineTextInspectors.registry[ key ],
