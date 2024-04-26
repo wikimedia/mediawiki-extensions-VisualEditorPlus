@@ -1,14 +1,17 @@
 ext.visualEditorPlus.ui.InlineTextInspector = function ( config ) {
 	config = config || {};
 	config.padded = false;
-	config.$container = $( document.body );
 	config.$overlay = true;
 	config.position = 'below';
 	config.autoFlip = false;
+	config.autoClose = false;
 	ext.visualEditorPlus.ui.InlineTextInspector.super.call( this, config );
 	this.inspectors = [];
 
 	this.$element.addClass( 'ext-visualEditorPlus-inlineTextInspector' );
+	this.$anchor.remove();
+
+	this.oldWidth = 0;
 
 	this.target = null;
 };
@@ -125,48 +128,78 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.inspect = function ( range
 	}
 };
 
-ext.visualEditorPlus.ui.InlineTextInspector.prototype.positionPopup = function () {
-	var targetContainerOffset, xStart, xEnd, horizontal, pos, targetOffset;
-	if ( !this.isVisible() ) {
-		return;
-	}
-	if ( !this.location || !this.location.hasOwnProperty( 'start' ) || !this.location.hasOwnProperty( 'end' ) ) {
-		return;
-	}
-
-	targetOffset = $( '.ve-init-target' ).offset();
-	targetContainerOffset =  targetOffset ? targetOffset : { top: 0, left: 0 };
-	targetContainerOffset = targetContainerOffset.left;
+ext.visualEditorPlus.ui.InlineTextInspector.prototype.getDesiredPosition = function () {
+	var xStart, xEnd, yStart, yEnd, xBlockStart, yBlockStart, xBlockEnd, yBlockEnd;
 	xStart = this.location.start.x;
 	xEnd = this.location.end.x;
-	horizontal = xStart < xEnd ? xStart : xEnd;
-	if ( horizontal < targetContainerOffset ) {
-		// Show as left as possible, but don't go off the left edge of the editor
-		horizontal = targetContainerOffset;
-	}
-	pos = {
-		top: this.location.start.y + 20, // For anchor
-		left: horizontal
-	};
+	yStart = this.location.start.y;
+	yEnd = this.location.end.y;
+	xBlockStart = xStart < xEnd ? xStart : xEnd;
+	yBlockStart = yStart < yEnd ? yStart : yEnd;
+	xBlockEnd = xStart > xEnd ? xStart : xEnd;
+	yBlockEnd = yStart > yEnd ? yStart : yEnd;
 
-	this.$element.css( {
+	return {
+		above: { x: xBlockStart, y: yBlockStart },
+		below: { x: xBlockEnd, y: yBlockEnd },
+	};
+};
+
+ext.visualEditorPlus.ui.InlineTextInspector.prototype.getEditorBoundary = function () {
+	var target = $( '.ve-init-target' ),
+		offset = target.offset(),
+		width = target.width(),
+		height = target.height();
+
+	return {
+		left: offset.left,
+		right: offset.left + width,
+		top: offset.top,
+		bottom: offset.top + height
+	};
+};
+
+ext.visualEditorPlus.ui.InlineTextInspector.prototype.computePosition = function () {
+	//var x = ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
+	var boundary, desiredPosition;
+	if ( !this.location || !this.location.hasOwnProperty( 'start' ) || !this.location.hasOwnProperty( 'end' ) ) {
+		return ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
+	}
+
+	boundary = this.getEditorBoundary();
+	desiredPosition = this.getDesiredPosition();
+
+	desiredPosition = desiredPosition[this.getPosition()];
+	if ( desiredPosition.x < boundary.left + 20  ) {
+		desiredPosition.x = boundary.left + 20;
+	}
+	var width = this.width || 300;
+	if ( desiredPosition.x > boundary.right - width ) {
+		desiredPosition.x = boundary.right - width;
+	}
+	if ( desiredPosition.y < boundary.top ) {
+		desiredPosition.y = boundary.top;
+	}
+	if ( desiredPosition.y > boundary.bottom - 100 ) {
+		desiredPosition.y = boundary.bottom - 100;
+	}
+
+	this.$container.css( {
 		position: 'absolute',
-		top: pos.top,
-		left: pos.left
+		top: desiredPosition.y + 10,
+		left: desiredPosition.x - 20
 	} );
-	this.$body.css( 'height', 'auto' );
-	this.$anchor.css( {
-		left: '10px'
-	} );
-	this.$element.removeClass( 'oo-ui-element-hidden' );
+
+	var pos = ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
+	pos.left -= 20;
+	return pos;
 };
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.toggle = function ( show ) {
 	var i;
 	ext.visualEditorPlus.ui.InlineTextInspector.parent.prototype.toggle.call( this, show );
-	if ( show ) {
-		this.positionPopup();
-	} else {
+
+	if ( !show ) {
 		for( i = 0; i < this.inspectors.length; i++ ) {
 			this.inspectors[i].onClose();
 		}
@@ -174,4 +207,15 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.toggle = function ( show )
 			this.selection.collapseToEnd();
 		}
 	}
+	if ( this.oldWidth ) {
+		this.width = this.oldWidth;
+	}
+};
+
+ext.visualEditorPlus.ui.InlineTextInspector.prototype.adaptPositionToSize = function ( width ) {
+	if ( this.width !== width ) {
+		this.oldWidth = this.width;
+	}
+	this.width = width;
+	this.computePosition();
 };
