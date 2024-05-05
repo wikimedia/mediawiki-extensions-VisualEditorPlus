@@ -14,6 +14,7 @@
 		"VisualEditor": {
 			"PluginModules":
 				[
+					"ext.visualEditorPlus",
 					"ext.visualEditorPlus.inlineTextInspector"
 				]
 		}
@@ -51,6 +52,14 @@
 			"dependencies": [
 				"ext.visualEditor.core",
 				"ext.visualEditorPlus.registry"
+			]
+		},
+		"ext.visualEditorPlus": {
+			"scripts": [
+				"ext.visualEditorPlus.replacementSequences.js"
+			],
+			"dependencies": [
+				"ext.visualEditor.core"
 			]
 		}
 	},
