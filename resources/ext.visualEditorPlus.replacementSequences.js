@@ -66,6 +66,10 @@
 		sequences.push( replacementSequence );
 	}
 
+	sequences.push( new ext.visualEditorPlus.ui.BackTickCodeSequence() );
+	sequences.push( new ext.visualEditorPlus.ui.TildeStrikeThroughSequence() );
+	sequences.push( new ext.visualEditorPlus.ui.UnderlineItalicSequence() );
+
 	for ( var j = 0; j < sequences.length; j++ ) {
 		var sequence = sequences[ j ];
 		if ( ve.ui.sequenceRegistry ) {
