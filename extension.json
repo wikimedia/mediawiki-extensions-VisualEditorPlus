@@ -56,6 +56,10 @@
 		},
 		"ext.visualEditorPlus": {
 			"scripts": [
+				"ext.visualEditorPlus/ui/WrapperSequenceBase.js",
+				"ext.visualEditorPlus/ui/BackTickCodeSequence.js",
+				"ext.visualEditorPlus/ui/TildeStrikeThroughSequence.js",
+				"ext.visualEditorPlus/ui/UnderlineItalicSequence.js",
 				"ext.visualEditorPlus.replacementSequences.js"
 			],
 			"dependencies": [
