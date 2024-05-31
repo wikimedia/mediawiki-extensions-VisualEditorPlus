@@ -110,6 +110,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onResize = function () {
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.shouldHide = function ( e ) {
 	var $target = $( e.target );
+	// eslint-disable-next-line no-jquery/no-class-state
 	if ( $target.hasClass( 'ext-visualEditorPlus-inlineTextInspector' ) ) {
 		return false;
 	}
@@ -146,6 +147,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.getDesiredPosition = funct
 };
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.getEditorBoundary = function () {
+	// eslint-disable-next-line no-jquery/no-global-selector, no-jquery/variable-pattern
 	var target = $( '.ve-init-target' ),
 		offset = target.offset(),
 		width = target.width(),

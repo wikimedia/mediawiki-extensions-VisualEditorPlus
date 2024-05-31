@@ -59,5 +59,9 @@
 		"mediawiki/msg-doc": "warn",
 		"new-cap": "warn",
 		"semi-style": "warn"
+	},
+	"globals": {
+		"ext": "readonly",
+		"ve": "readonly"
 	}
 }
