@@ -7,6 +7,7 @@ mw.hook( 've.activationComplete' ).add( function () {
 function registerInlineTextInspectors( target ) {
 	if ( target.getSurface().getMode() === 'visual' ) {
 		var $popupTarget = $( '<div>' );
+		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.ve-init-target' ).append( $popupTarget );
 		var inspectorPopup = new ext.visualEditorPlus.ui.InlineTextInspector( {
 			$overlay: true,
