@@ -5,6 +5,7 @@ ext.visualEditorPlus.ui.InlineTextInspector = function ( config ) {
 	config.position = 'below';
 	config.autoFlip = false;
 	config.autoClose = false;
+	config.width = null;
 	ext.visualEditorPlus.ui.InlineTextInspector.super.call( this, config );
 	this.inspectors = [];
 
@@ -57,6 +58,8 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.init = function () {
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.onSelection = function ( selection ) {
 	if ( !( selection instanceof ve.dm.LinearSelection ) ) {
+		this.selection = null;
+		this.selectedNode = null;
 		return;
 	}
 	this.selection = selection;
@@ -93,7 +96,8 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseUp = function ( e )
 		x: e.pageX,
 		y: e.pageY
 	};
-	if ( !this.selection ) {
+	if ( !this.selection || this.selectedNode ) {
+		// If some particular node is selected, we don't want to show the inspector, just on plain text
 		return;
 	}
 	range = this.selection.getRange();
@@ -182,7 +186,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.computePosition = function
 	if ( desiredPosition.y < boundary.top ) {
 		desiredPosition.y = boundary.top;
 	}
-	if ( desiredPosition.y > boundary.bottom - 100 ) {
+	if ( desiredPosition.y > boundary.bottom ) {
 		desiredPosition.y = boundary.bottom - 100;
 	}
 
