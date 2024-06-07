@@ -48,7 +48,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.init = function () {
 	this.selection = null;
 	this.selectedNode = null;
 
-	this.surfaceModel.on( 'select', this.onSelection.bind( this )  );
+	this.surfaceModel.on( 'select', this.onSelection.bind( this ) );
 	this.target.getToolbar().on( 'updateState', this.onToolbarUpdateState.bind( this ) );
 	$( document ).on( 'mousedown', this.onMouseDown.bind( this ) );
 	$( document ).on( 'mouseup', this.onMouseUp.bind( this ) );
@@ -142,7 +142,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.getDesiredPosition = funct
 
 	return {
 		above: { x: xBlockStart, y: yBlockStart },
-		below: { x: xBlockEnd, y: yBlockEnd },
+		below: { x: xBlockEnd, y: yBlockEnd }
 	};
 };
 
@@ -162,7 +162,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.getEditorBoundary = functi
 };
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.computePosition = function () {
-	//var x = ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
+	// var x = ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
 	var boundary, desiredPosition;
 	if ( !this.location || !this.location.hasOwnProperty( 'start' ) || !this.location.hasOwnProperty( 'end' ) ) {
 		return ext.visualEditorPlus.ui.InlineTextInspector.super.prototype.computePosition.call( this );
@@ -171,8 +171,8 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.computePosition = function
 	boundary = this.getEditorBoundary();
 	desiredPosition = this.getDesiredPosition();
 
-	desiredPosition = desiredPosition[this.getPosition()];
-	if ( desiredPosition.x < boundary.left + 20  ) {
+	desiredPosition = desiredPosition[ this.getPosition() ];
+	if ( desiredPosition.x < boundary.left + 20 ) {
 		desiredPosition.x = boundary.left + 20;
 	}
 	var width = this.width || 300;
@@ -202,8 +202,8 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.toggle = function ( show )
 	ext.visualEditorPlus.ui.InlineTextInspector.parent.prototype.toggle.call( this, show );
 
 	if ( !show ) {
-		for( i = 0; i < this.inspectors.length; i++ ) {
-			this.inspectors[i].onClose();
+		for ( i = 0; i < this.inspectors.length; i++ ) {
+			this.inspectors[ i ].onClose();
 		}
 		if ( this.selection ) {
 			this.selection.collapseToEnd();
