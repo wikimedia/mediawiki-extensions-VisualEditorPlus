@@ -96,7 +96,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseUp = function ( e )
 		x: e.pageX,
 		y: e.pageY
 	};
-	if ( !this.selection || ( this.selectedNode && !( this.selectedNode instanceof ve.dm.TextNode ) ) ){
+	if ( !this.selection || ( this.selectedNode && !( this.selectedNode instanceof ve.dm.TextNode ) ) ) {
 		// If some particular node is selected, we don't want to show the inspector, just on plain text
 		return;
 	}
