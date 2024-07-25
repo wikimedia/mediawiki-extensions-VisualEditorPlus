@@ -9,3 +9,10 @@ ext.visualEditorPlus.ui.UnderlineItalicSequence = function ExtVisualEditorPlusUi
 	ext.visualEditorPlus.ui.UnderlineItalicSequence.super.apply( this );
 };
 OO.inheritClass( ext.visualEditorPlus.ui.UnderlineItalicSequence, ext.visualEditorPlus.ui.WrapperSequenceBase );
+
+ext.visualEditorPlus.ui.UnderlineItalicSequence.prototype.execute = function ( surface, range ) {
+	if ( surface.getMode() !== 'visual' ) {
+		return null;
+	}
+	return ext.visualEditorPlus.ui.UnderlineItalicSequence.super.prototype.execute.apply( this, arguments );
+};
