@@ -152,7 +152,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.getDesiredPosition = funct
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.getEditorBoundary = function () {
 	// eslint-disable-next-line no-jquery/no-global-selector, no-jquery/variable-pattern
-	var target = $( '.ve-init-target' ),
+	var target = $( '.ve-ui-surface' ),
 		offset = target.offset(),
 		width = target.width(),
 		height = target.height();
