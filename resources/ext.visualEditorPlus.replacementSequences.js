@@ -1,66 +1,66 @@
 // HINT: https://de.wikipedia.org/wiki/Benutzer:Schnark/js/veAutocorrect.js
 ( function ( ve ) {
 
-	var replacements = {
-			' :)': ' 😊',
-			' :-)': ' 😊',
-			' :(': ' 😞',
-			' :-(': ' 😞',
-			' :D': ' 😄',
-			' :P': ' 😛',
-			' :O': ' 😲',
-			' ;)': ' 😉',
-			' ;-)': ' 😉',
-			' :|': ' 😐',
-			' :-|': ' 😐',
-			' :/': ' 😕',
-			' :-/': ' 😕',
-			' :-@': ' 😠',
-			' :-X': ' 🤐',
-			' :\'(': ' 😢',
-			' :-O': ' 😲',
-			' :-S': ' 😖',
-			':lol:': '😂',
-			' (:|': '😴',
-			' :-[': ' 😳',
-			' [-X': ' 😳',
-			' (v)': ' ✅',
-			':good:': '👍',
-			' (x)': ' ❌',
-			':bad:': '👎',
-			' (?)': ' ❓',
-			'--> ': '→',
-			'<-- ': '←',
-			'<-> ': '↔'
-		},
+	const replacements = {
+		' :)': ' 😊',
+		' :-)': ' 😊',
+		' :(': ' 😞',
+		' :-(': ' 😞',
+		' :D': ' 😄',
+		' :P': ' 😛',
+		' :O': ' 😲',
+		' ;)': ' 😉',
+		' ;-)': ' 😉',
+		' :|': ' 😐',
+		' :-|': ' 😐',
+		' :/': ' 😕',
+		' :-/': ' 😕',
+		' :-@': ' 😠',
+		' :-X': ' 🤐',
+		' :\'(': ' 😢',
+		' :-O': ' 😲',
+		' :-S': ' 😖',
+		':lol:': '😂',
+		' (:|': '😴',
+		' :-[': ' 😳',
+		' [-X': ' 😳',
+		' (v)': ' ✅',
+		':good:': '👍',
+		' (x)': ' ❌',
+		':bad:': '👎',
+		' (?)': ' ❓',
+		'--> ': '→',
+		'<-- ': '←',
+		'<-> ': '↔'
+	};
 
-	 sequences = [];
+	const sequences = [];
 
-	for ( var key in replacements ) {
-		var value = replacements[ key ],
-		 encKey = '';
-		for ( var i = 0; i < key.length; i++ ) {
+	for ( const key in replacements ) {
+		const value = replacements[ key ];
+		let encKey = '';
+		for ( let i = 0; i < key.length; i++ ) {
 			encKey += key.charCodeAt( i );
 		}
 
-		var commandName = 'insertReplacement' + encKey,
-		 sequenceName = 'replacement' + encKey,
+		const commandName = 'insertReplacement' + encKey;
+		const sequenceName = 'replacement' + encKey;
 
-		 command = new ve.ui.Command(
-				commandName,
-				'content',
-				'insert',
-				{
-					args: [ value, true, true ]
-				}
-			),
+		const command = new ve.ui.Command(
+			commandName,
+			'content',
+			'insert',
+			{
+				args: [ value, true, true ]
+			}
+		);
 
-		 replacementSequence = new ve.ui.Sequence(
-				sequenceName,
-				commandName,
-				key,
-				key.length
-			);
+		const replacementSequence = new ve.ui.Sequence(
+			sequenceName,
+			commandName,
+			key,
+			key.length
+		);
 
 		ve.ui.commandRegistry.register( command );
 		sequences.push( replacementSequence );
@@ -70,8 +70,8 @@
 	sequences.push( new ext.visualEditorPlus.ui.TildeStrikeThroughSequence() );
 	sequences.push( new ext.visualEditorPlus.ui.UnderlineItalicSequence() );
 
-	for ( var j = 0; j < sequences.length; j++ ) {
-		var sequence = sequences[ j ];
+	for ( let j = 0; j < sequences.length; j++ ) {
+		const sequence = sequences[ j ];
 		if ( ve.ui.sequenceRegistry ) {
 			ve.ui.sequenceRegistry.register( sequence );
 		}
