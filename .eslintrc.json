@@ -11,6 +11,7 @@
 	},
 	"rules": {
 		"max-len": "off",
-		"no-prototype-builtins": "off"
+		"no-prototype-builtins": "off",
+		"mediawiki/no-nodelist-unsupported-methods": "off"
 	}
 }
