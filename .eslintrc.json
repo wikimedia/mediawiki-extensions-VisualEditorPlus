@@ -1,15 +1,21 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client-es6",
+		"wikimedia/client",
 		"wikimedia/jquery",
 		"wikimedia/mediawiki"
 	],
+	"parserOptions": {
+		"sourceType": "commonjs",
+		"ecmaVersion": 2017
+	},
 	"globals": {
 		"ext": "writeable",
 		"ve": "readonly"
 	},
 	"rules": {
+		"es-x/no-async-functions": "off",
+		"es-x/no-string-prototype-replaceall": "off",
 		"max-len": "off",
 		"no-prototype-builtins": "off",
 		"mediawiki/no-nodelist-unsupported-methods": "off"
