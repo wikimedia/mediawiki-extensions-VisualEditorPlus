@@ -82,6 +82,13 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseDown = function ( e
 				y: e.pageY
 			}
 		};
+	} else {
+		const isPartOfPopup = $( e.target ).closest( '.ext-visualEditorPlus-inlineTextInspector' ).length > 0;
+		if ( isPartOfPopup ) {
+			// If the click is inside the popup, prevent bubbling
+			e.stopPropagation();
+			e.preventDefault();
+		}
 	}
 };
 
