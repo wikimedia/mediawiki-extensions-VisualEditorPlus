@@ -18,6 +18,7 @@
 		"es-x/no-string-prototype-replaceall": "off",
 		"max-len": "off",
 		"no-prototype-builtins": "off",
-		"mediawiki/no-nodelist-unsupported-methods": "off"
+		"mediawiki/no-nodelist-unsupported-methods": "off",
+		"no-jquery/no-done-fail": "warn"
 	}
 }

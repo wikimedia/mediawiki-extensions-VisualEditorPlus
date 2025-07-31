@@ -140,7 +140,7 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.setValues = function ( inspecto
 			}
 			if ( paramDefinition && paramDefinition.type === 'boolean' ) {
 				const trueValues = [ 'true', '1', 'yes', 'on' ];
-				if ( trueValues.indexOf( value ) !== -1 ) {
+				if ( trueValues.includes( value ) ) {
 					value = true;
 				} else {
 					value = false;
