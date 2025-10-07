@@ -128,11 +128,11 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.setValues = function ( inspecto
 	if ( !inspector.inspectorForm ) {
 		return;
 	}
-	attrs = this.modifyDataBeforeSetToInspector( attrs );
+	attrs = this.modifyDataBeforeSetToInspector( attrs, inspector );
 	inspector.value = {};
 	const inputs = inspector.inspectorForm.form.getInputs();
 	for ( const inputName in inputs ) {
-		if ( attrs[ inputName ] ) {
+		if ( inputName in attrs ) {
 			const paramDefinition = this.paramDefinitions[ inputName ] || null;
 			let value = attrs[ inputName ];
 			if ( paramDefinition && paramDefinition.is_list ) {
@@ -175,17 +175,27 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.modifyDataBeforeSetToModel = fu
 	return data;
 };
 
-ext.visualEditorPlus.ui.tag.Definition.prototype.modifyDataBeforeSetToInspector = function ( data ) {
+ext.visualEditorPlus.ui.tag.Definition.prototype.modifyDataBeforeSetToInspector = function ( data, inspector ) { // eslint-disable-line no-unused-vars
 	// This method can be overridden to modify the data before it is set in the inspector
 	return data;
+};
+
+ext.visualEditorPlus.ui.tag.Definition.prototype.onTeardown = function ( data, inspector ) {
+	if ( !inspector.inspectorForm ) {
+		return;
+	}
+	const inputs = inspector.inspectorForm.form.getInputs();
+	for ( const inputName in inputs ) {
+		inputs[ inputName ].disconnect( this );
+	}
 };
 
 ext.visualEditorPlus.ui.tag.Definition.prototype.updateMwData = function ( inspector, mwData ) {
 	if ( !inspector.inspectorForm ) {
 		return;
 	}
-	const currentValue = inspector.value;
 
+	const currentValue = inspector.value;
 	const params = this.paramDefinitions;
 	for ( const param in params ) {
 		const value = currentValue[ param ] || null;
