@@ -102,6 +102,7 @@ ext.visualEditorPlus.ui.tag.Registry.prototype.createInspectorForTag = function 
 	ext.visualEditorPlus.ui[ classname ] = function ( config ) {
 		ext.visualEditorPlus.ui[ classname ].super.call( this, ve.extendObject( { padded: false, expanded: true, scrollable: false }, config ) );
 		this.pendingSetValue = null;
+		this.commandParams = {};
 	};
 
 	OO.inheritClass( ext.visualEditorPlus.ui[ classname ], ve.ui.MWLiveExtensionInspector );
@@ -177,12 +178,22 @@ ext.visualEditorPlus.ui.tag.Registry.prototype.createInspectorForTag = function 
 		return ext.visualEditorPlus.ui[ classname ].super.prototype.getSetupProcess.call( this, data )
 			.next( function () {
 				const attributes = this.selectedNode.getAttribute( 'mw' ).attrs;
+				if ( data.commandParams || null ) {
+					this.commandParams = data.commandParams;
+				}
 				if ( !this.inspectorForm ) {
 					this.pendingSetValue = attributes;
 					return;
 				}
 				definition.setValues( this, attributes );
 				this.actions.setAbilities( { done: true } );
+			}, this );
+	};
+
+	ext.visualEditorPlus.ui[ classname ].prototype.getTeardownProcess = function ( data ) {
+		return ext.visualEditorPlus.ui[ classname ].super.prototype.getTeardownProcess.call( this, data )
+			.next( function () {
+				definition.onTeardown( data, this );
 			}, this );
 	};
 
