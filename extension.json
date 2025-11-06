@@ -77,7 +77,8 @@
 				"ext.visualEditorPlus.tags/Definition.js"
 			],
 			"dependencies": [
-				"ext.visualEditorPlus.bootstrap"
+				"ext.visualEditorPlus.bootstrap",
+				"oojs"
 			]
 		},
 		"ext.visualEditorPlus.tags": {
