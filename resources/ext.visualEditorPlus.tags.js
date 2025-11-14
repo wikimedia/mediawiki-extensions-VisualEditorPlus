@@ -1,20 +1,14 @@
-async function getSpecifications() {
-	try {
-		const data = await new Promise( ( resolve, reject ) => {
-			$.ajax( {
-				url: mw.util.wikiScript( 'rest' ) + '/mws/v1/tags',
-				type: 'GET',
-				success: resolve,
-				error: ( jqXHR, textStatus, errorThrown ) => {
-					reject( new Error( `Request failed: ${ textStatus }, ${ errorThrown }` ) );
-				}
-			} );
-		} );
+function getSpecifications() {
+	const dfd = $.Deferred();
+	$.ajax( {
+		url: mw.util.wikiScript( 'rest' ) + '/mws/v1/tags',
+		type: 'GET'
+	} ).done( ( data ) => {
 		const definitions = [];
-		data.map( async ( fullData ) => {
+		for ( const fullData of data ) {
 			const spec = fullData.clientSpecification;
 			if ( !spec ) {
-				return;
+				continue;
 			}
 			for ( let i = 0; i < fullData.tags.length; i++ ) {
 				const tagDefinition = null;
@@ -30,31 +24,40 @@ async function getSpecifications() {
 				}
 				definitions.push( new ext.visualEditorPlus.ui.tag.Definition( definitionData ) );
 			}
-		} );
-		return {
+		}
+		dfd.resolve( {
 			definitions: definitions,
 			tags: data
-		};
-	} catch ( error ) {
-		console.error( error.message ); // eslint-disable-line no-console
-		throw error;
-	}
+		} );
+	} );
+	return dfd.promise();
 }
 
-async function _initialize() { // eslint-disable-line no-underscore-dangle
-	const specs = await getSpecifications();
-	const _registry = new ext.visualEditorPlus.ui.tag.Registry(); // eslint-disable-line no-underscore-dangle
+function _initialize() { // eslint-disable-line no-underscore-dangle
+	const dfd = $.Deferred();
+	getSpecifications().done( ( specs ) => {
+		const _registry = new ext.visualEditorPlus.ui.tag.Registry(); // eslint-disable-line no-underscore-dangle
 
-	specs.definitions.forEach( ( definition ) => {
-		_registry.registerTagDefinition( definition );
+		specs.definitions.forEach( ( definition ) => {
+			_registry.registerTagDefinition( definition );
+		} );
+
+		/**
+		 * @param {ext.visualEditorPlus.ui.tag.Registry} registry
+		 * @param {Object} tags All tag data as retrieved from the API
+		 */
+		mw.hook( 'ext.visualEditorPlus.tags.registerTags' ).fire( _registry, specs.tags );
+		_registry.initialize();
+		dfd.resolve();
 	} );
 
-	/**
-	 * @param {ext.visualEditorPlus.ui.tag.Registry} registry
-	 * @param {Object} tags All tag data as retrieved from the API
-	 */
-	mw.hook( 'ext.visualEditorPlus.tags.registerTags' ).fire( _registry, specs.tags );
-	_registry.initialize();
+	return dfd.promise();
 }
 
-_initialize();
+mw.libs.ve.targetLoader.addPlugin( () => {
+	const dfd = $.Deferred();
+	_initialize().done( () => {
+		dfd.resolve();
+	} );
+	return dfd.promise();
+} );
