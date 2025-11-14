@@ -7,7 +7,7 @@
 	],
 	"parserOptions": {
 		"sourceType": "commonjs",
-		"ecmaVersion": 2017
+		"ecmaVersion": 2020
 	},
 	"globals": {
 		"ext": "writeable",
@@ -15,6 +15,7 @@
 	},
 	"rules": {
 		"es-x/no-async-functions": "off",
+		"es-x/no-nullish-coalescing-operators": "off",
 		"es-x/no-string-prototype-replaceall": "off",
 		"max-len": "off",
 		"no-prototype-builtins": "off",

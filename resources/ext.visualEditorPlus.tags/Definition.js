@@ -198,7 +198,10 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.updateMwData = function ( inspe
 	const currentValue = inspector.value;
 	const params = this.paramDefinitions;
 	for ( const param in params ) {
-		const value = currentValue[ param ] || null;
+		let value = currentValue[ param ] || null;
+		if ( params[ param ].type === 'boolean' ) {
+			value = currentValue[ param ] ?? null;
+		}
 		if ( value === null ) {
 			delete ( mwData.attrs[ param ] );
 			continue;
