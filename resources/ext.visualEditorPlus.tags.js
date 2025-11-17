@@ -11,7 +11,9 @@ function getSpecifications() {
 				continue;
 			}
 			for ( let i = 0; i < fullData.tags.length; i++ ) {
-				const tagDefinition = null;
+				const tagDefinition = {
+					instance: null
+				};
 				const definitionData = Object.assign( spec, {
 					name: fullData.tags[ i ].replaceAll( ':', '_' ),
 					tagname: fullData.tags[ i ],
@@ -20,6 +22,10 @@ function getSpecifications() {
 				mw.hook( 'ext.visualEditorPlus.tags.getTagDefinition' ).fire( definitionData, tagDefinition );
 				if ( tagDefinition instanceof ext.visualEditorPlus.ui.tag.Definition ) {
 					definitions.push( tagDefinition );
+					continue;
+				}
+				if ( tagDefinition.instance instanceof ext.visualEditorPlus.ui.tag.Definition ) {
+					definitions.push( tagDefinition.instance );
 					continue;
 				}
 				definitions.push( new ext.visualEditorPlus.ui.tag.Definition( definitionData ) );
