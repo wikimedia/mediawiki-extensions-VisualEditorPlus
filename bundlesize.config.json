@@ -1,0 +1,10 @@
+[
+	{
+		"resourceModule": "ext.visualEditorPlus.tags.definition",
+		"maxSize": "2 kB"
+	},
+	{
+		"resourceModule": "ext.visualEditorPlus.bootstrap",
+		"maxSize": "2 kB"
+	}
+]
