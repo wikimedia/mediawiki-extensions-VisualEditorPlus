@@ -1,0 +1,34 @@
+.ve-ui-tableLineContext-menu .ve-ui-tableLineContextItem a.oo-ui-buttonElement-button {
+	font-weight: normal;
+	border-color: transparent;
+}
+
+.ve-ui-contextItem.ve-ui-tableLineContextItem + .ve-ui-contextItem.ve-ui-tableLineContextItem {
+	border-color: transparent;
+}
+
+.ve-ui-tableLineContextItem-actionButton.oo-ui-buttonElement:not( .oo-ui-widget-disabled ) a.oo-ui-buttonElement-button:hover {
+	background-color: var( --background-color-interactive, #eaecf0 );
+}
+
+.ext-visualeditorplus-tableContextItem-cellAction {
+	border-right: 1px solid var( --border-color-base, #a2a9b1 );
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.ext-visualeditorplus-tableContextItem-cellAction .bs-vec-command-widget {
+	margin-right: 0;
+}
+
+.ve-ui-desktopContext-menu:has( .ext-visualeditorplus-tableContextItem ) {
+	width: 100%;
+}
+
+.ext-visualeditorplus-tableContextItem .ve-ui-linearContextItem-title {
+	display: none;
+}
+
+.ext-visualeditorplus-tableContextItem .ve-ui-linearContextItem-head {
+	justify-content: space-around;
+}

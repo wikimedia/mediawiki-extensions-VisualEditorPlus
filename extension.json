@@ -16,7 +16,8 @@
 				[
 					"ext.visualEditorPlus.tags",
 					"ext.visualEditorPlus",
-					"ext.visualEditorPlus.inlineTextInspector"
+					"ext.visualEditorPlus.inlineTextInspector",
+					"ext.visualEditorPlus.table"
 				]
 		},
 		"CollabPads": {
@@ -90,6 +91,24 @@
 			"dependencies": [
 				"ext.visualEditorPlus.bootstrap",
 				"ext.visualEditorPlus.tags.definition"
+			]
+		},
+		"ext.visualEditorPlus.table": {
+			"scripts": [
+				"ext.visualEditorPlus.table/contextItem/ImprovedTableContextItem.js",
+				"ext.visualEditorPlus.table/contextItem/ImprovedTableLineContextItem.js",
+				"ext.visualEditorPlus.table/dialog/AdditionalActionsDialog.js"
+			],
+			"styles": [
+				"stylesheets/TableContextItem.css"
+			],
+			"messages": [
+				"cancel",
+				"visualeditorplus-table-contextitemwidget-label-remove",
+				"visualeditorplus-table-contextitem-properties-label",
+				"visualeditorplus-table-contextitem-additional-options-label",
+				"visualeditorplus-table-cell-actions-dialog-title",
+				"visualeditorplus-table-cell-actions-dialog-done-label"
 			]
 		},
 		"ext.visualEditorPlus.styleInspector": {
