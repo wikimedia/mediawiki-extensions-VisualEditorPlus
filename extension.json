@@ -91,6 +91,25 @@
 				"ext.visualEditorPlus.bootstrap",
 				"ext.visualEditorPlus.tags.definition"
 			]
+		},
+		"ext.visualEditorPlus.styleInspector": {
+			"scripts": [
+				"ext.visualEditorPlus.styleInspector/styleTool/ButtonTool.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Bold.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Italic.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Code.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Small.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Big.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Strikethrough.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Underline.js",
+				"ext.visualEditorPlus.styleInspector/TextStyleToolRegistry.js",
+				"ext.visualEditorPlus.styleInspector/Inspector.js"
+			],
+			"dependencies": [
+				"oojs-ui",
+				"ext.visualEditor.mwcore",
+				"ext.visualEditorPlus.inlineTextInspector"
+			]
 		}
 	},
 	"callback": "MediaWiki\\Extension\\VisualEditorPlus\\Extension::callback",
