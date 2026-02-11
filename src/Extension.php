@@ -6,5 +6,7 @@ class Extension {
 
 	public static function callback() {
 		\mwsInitComponents();
+
+		$GLOBALS[ 'wgVisualEditorPreloadModules' ][] = "ext.visualEditorPlus.styleInspector";
 	}
 }
