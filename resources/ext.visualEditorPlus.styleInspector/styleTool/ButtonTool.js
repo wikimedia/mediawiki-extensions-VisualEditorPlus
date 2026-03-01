@@ -29,7 +29,7 @@ ext.visualEditorPlus.ui.ButtonStyleTool.prototype.annotate = function () {
 		this.annotationAction = new ve.ui.AnnotationAction( this.surface );
 	}
 	const method = this.getMethod();
-	if ( ve.ui.AnnotationAction.static.methods.indexOf( method ) === -1 ) {
+	if ( !ve.ui.AnnotationAction.static.methods.includes( method ) ) {
 		return;
 	}
 	const annotationData = {
