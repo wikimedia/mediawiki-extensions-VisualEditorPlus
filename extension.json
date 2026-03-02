@@ -121,6 +121,7 @@
 				"ext.visualEditorPlus.styleInspector/styleTool/Big.js",
 				"ext.visualEditorPlus.styleInspector/styleTool/Strikethrough.js",
 				"ext.visualEditorPlus.styleInspector/styleTool/Underline.js",
+				"ext.visualEditorPlus.styleInspector/styleTool/Link.js",
 				"ext.visualEditorPlus.styleInspector/TextStyleToolRegistry.js",
 				"ext.visualEditorPlus.styleInspector/Inspector.js"
 			],

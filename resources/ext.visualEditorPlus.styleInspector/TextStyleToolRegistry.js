@@ -13,3 +13,4 @@ ext.visualEditorPlus.registry.TextStyleTool.register( 'textStyle/underline', { c
 ext.visualEditorPlus.registry.TextStyleTool.register( 'textStyle/small', { constructor: ext.visualEditorPlus.ui.SmallStyleTool } );
 ext.visualEditorPlus.registry.TextStyleTool.register( 'textStyle/big', { constructor: ext.visualEditorPlus.ui.BigStyleTool } );
 ext.visualEditorPlus.registry.TextStyleTool.register( 'textStyle/code', { constructor: ext.visualEditorPlus.ui.CodeStyleTool } );
+ext.visualEditorPlus.registry.TextStyleTool.register( 'link', { constructor: ext.visualEditorPlus.ui.LinkStyleTool } );
