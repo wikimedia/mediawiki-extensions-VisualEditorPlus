@@ -139,7 +139,7 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.setValues = function ( inspecto
 				value = value.split( paramDefinition.separator || ',' );
 			}
 			if ( paramDefinition && paramDefinition.type === 'boolean' ) {
-				const trueValues = [ 'true', '1', 'yes', 'on' ];
+				const trueValues = [ 'true', '1', 'yes', 'on', true ];
 				if ( trueValues.indexOf( value ) !== -1 ) {
 					value = true;
 				} else {

@@ -1,4 +1,4 @@
-ext.visualEditorPlus.ui.tag.Registry = function BsVecUtilTagRegistry() {
+ext.visualEditorPlus.ui.tag.Registry = function VEPlusTagRegistry() {
 	this.definitions = [];
 };
 

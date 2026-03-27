@@ -1,15 +1,19 @@
-function getSpecifications() {
+async function getSpecifications() {
 	const dfd = $.Deferred();
 	$.ajax( {
 		url: mw.util.wikiScript( 'rest' ) + '/mws/v1/tags',
 		type: 'GET'
-	} ).done( ( data ) => {
+	} ).done( async ( data ) => {
 		const definitions = [];
 		for ( const fullData of data ) {
 			const spec = fullData.clientSpecification;
 			if ( !spec ) {
 				continue;
 			}
+			if ( fullData.rlModules ) {
+				await mw.loader.using( fullData.rlModules );
+			}
+
 			for ( let i = 0; i < fullData.tags.length; i++ ) {
 				const tagDefinition = {
 					instance: null
@@ -17,8 +21,11 @@ function getSpecifications() {
 				const definitionData = Object.assign( spec, {
 					name: fullData.tags[ i ].replaceAll( ':', '_' ),
 					tagname: fullData.tags[ i ],
-					paramDefinitions: fullData.paramDefinition
+					paramDefinitions: fullData.paramDefinition,
+					isWrapper: fullData.isWrapper,
+					containerElementName: fullData.containerElementName || 'div'
 				} );
+
 				mw.hook( 'ext.visualEditorPlus.tags.getTagDefinition' ).fire( definitionData, tagDefinition );
 				if ( tagDefinition instanceof ext.visualEditorPlus.ui.tag.Definition ) {
 					definitions.push( tagDefinition );
@@ -28,7 +35,12 @@ function getSpecifications() {
 					definitions.push( tagDefinition.instance );
 					continue;
 				}
-				definitions.push( new ext.visualEditorPlus.ui.tag.Definition( definitionData ) );
+
+				if ( definitionData.isWrapper ) {
+					definitions.push( new ext.visualEditorPlus.ui.tag.WrapperDefinition( definitionData ) );
+				} else {
+					definitions.push( new ext.visualEditorPlus.ui.tag.Definition( definitionData ) );
+				}
 			}
 		}
 		dfd.resolve( {
@@ -39,30 +51,30 @@ function getSpecifications() {
 	return dfd.promise();
 }
 
-function _initialize() { // eslint-disable-line no-underscore-dangle
-	const dfd = $.Deferred();
-	getSpecifications().done( ( specs ) => {
-		const _registry = new ext.visualEditorPlus.ui.tag.Registry(); // eslint-disable-line no-underscore-dangle
+async function _initialize() { // eslint-disable-line no-underscore-dangle
+	const specs = await getSpecifications();
+	const _registry = new ext.visualEditorPlus.ui.tag.Registry(); // eslint-disable-line no-underscore-dangle
 
-		specs.definitions.forEach( ( definition ) => {
+	await mw.loader.using( 'ext.visualEditorPlus.tags.wrapperAction' );
+	specs.definitions.forEach( ( definition ) => {
+		if ( definition instanceof ext.visualEditorPlus.ui.tag.WrapperDefinition ) {
+			definition.register();
+		} else {
 			_registry.registerTagDefinition( definition );
-		} );
-
-		/**
-		 * @param {ext.visualEditorPlus.ui.tag.Registry} registry
-		 * @param {Object} tags All tag data as retrieved from the API
-		 */
-		mw.hook( 'ext.visualEditorPlus.tags.registerTags' ).fire( _registry, specs.tags );
-		_registry.initialize();
-		dfd.resolve();
+		}
 	} );
 
-	return dfd.promise();
+	/**
+	 * @param {ext.visualEditorPlus.ui.tag.Registry} registry
+	 * @param {Object} tags All tag data as retrieved from the API
+	 */
+	mw.hook( 'ext.visualEditorPlus.tags.registerTags' ).fire( _registry, specs.tags );
+	_registry.initialize();
 }
 
 mw.libs.ve.targetLoader.addPlugin( () => {
 	const dfd = $.Deferred();
-	_initialize().done( () => {
+	_initialize().then( () => {
 		dfd.resolve();
 	} );
 	return dfd.promise();
