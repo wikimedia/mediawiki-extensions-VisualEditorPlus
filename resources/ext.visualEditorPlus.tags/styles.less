@@ -1,0 +1,39 @@
+/* for view mode also */
+.wrapper-container {
+	display: flow-root;
+}
+
+/* VE only */
+.ve-ce-surface {
+	.wrapper-container {
+		border: #eaeaea 1px solid;
+		padding: 40px 10px 10px 10px;
+		position: relative;
+
+		.wrapper-header {
+			cursor: pointer;
+			background-color: #eaeaea;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			padding: 10px;
+
+			*::selection {
+				background: transparent;
+			}
+		}
+
+		&.selected {
+			border: #cecece 1px solid;
+
+			.wrapper-header {
+				background-color: #cecece;
+			}
+
+			*::selection {
+				background: transparent;
+			}
+		}
+	}
+}

@@ -4,6 +4,7 @@ window.ext.visualEditorPlus = {
 	},
 	ce: {},
 	dm: {},
+	ve: {},
 	registry: {
 	}
 };

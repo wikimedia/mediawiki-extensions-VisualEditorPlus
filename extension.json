@@ -76,7 +76,15 @@
 		},
 		"ext.visualEditorPlus.tags.definition": {
 			"scripts": [
-				"ext.visualEditorPlus.tags/Definition.js"
+				"ext.visualEditorPlus.tags/TagDefinition.js",
+				"ext.visualEditorPlus.tags/WrapperDefinition.js"
+			],
+			"styles": [
+				"ext.visualEditorPlus.tags/styles.less"
+			],
+			"messages": [
+				"visualeditorplus-ui-label-unwrap",
+				"visualeditorplus-ui-label-delete"
 			],
 			"dependencies": [
 				"ext.visualEditorPlus.bootstrap",
@@ -85,12 +93,17 @@
 		},
 		"ext.visualEditorPlus.tags": {
 			"scripts": [
-				"ext.visualEditorPlus.tags/Registry.js",
+				"ext.visualEditorPlus.tags/TagRegistry.js",
 				"ext.visualEditorPlus.tags.js"
 			],
 			"dependencies": [
 				"ext.visualEditorPlus.bootstrap",
 				"ext.visualEditorPlus.tags.definition"
+			]
+		},
+		"ext.visualEditorPlus.tags.wrapperAction": {
+			"scripts": [
+				"ext.visualEditorPlus.tags/WrapperAction.js"
 			]
 		},
 		"ext.visualEditorPlus.table": {
