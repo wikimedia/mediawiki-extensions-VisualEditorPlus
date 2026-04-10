@@ -97,7 +97,7 @@ ext.visualEditorPlus.ui.tag.WrapperDefinition.prototype.registerDm = function ()
 	const nodeClassesToPatch = [ 'MWTableNode', 'MWHeadingNode', 'MWPreformattedNode' ];
 	for ( const nodeClass of nodeClassesToPatch ) {
 		if ( ve.dm[ nodeClass ] && ve.dm[ nodeClass ].static.suggestedParentNodeTypes ) {
-			if ( ve.dm[ nodeClass ].static.suggestedParentNodeTypes.indexOf( wrapperType ) === -1 ) {
+			if ( ve.dm[ nodeClass ].static.suggestedParentNodeTypes.includes( wrapperType ) ) {
 				ve.dm[ nodeClass ].static.suggestedParentNodeTypes.push( wrapperType );
 			}
 		}
