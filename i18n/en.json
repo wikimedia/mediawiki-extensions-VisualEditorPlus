@@ -7,5 +7,7 @@
 	"visualeditorplus-table-contextitem-properties-label": "Table properties",
 	"visualeditorplus-table-contextitem-additional-options-label": "Additional cell options",
 	"visualeditorplus-table-cell-actions-dialog-title": "Cell options",
-	"visualeditorplus-table-cell-actions-dialog-done-label": "Done"
+	"visualeditorplus-table-cell-actions-dialog-done-label": "Done",
+	"visualeditorplus-ui-label-unwrap": "Remove (keep content)",
+	"visualeditorplus-ui-label-delete": "Remove"
 }
