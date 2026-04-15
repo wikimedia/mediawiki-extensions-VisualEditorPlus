@@ -10,5 +10,7 @@
 	"visualeditorplus-table-contextitem-properties-label": "Tabeleigenschappen",
 	"visualeditorplus-table-contextitem-additional-options-label": "Aanvullende celopties",
 	"visualeditorplus-table-cell-actions-dialog-title": "Celopties",
-	"visualeditorplus-table-cell-actions-dialog-done-label": "Afgerond"
+	"visualeditorplus-table-cell-actions-dialog-done-label": "Afgerond",
+	"visualeditorplus-ui-label-unwrap": "Verwijderen (inhoud behouden)",
+	"visualeditorplus-ui-label-delete": "Verwijderen"
 }
