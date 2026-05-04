@@ -1,15 +1,23 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client-es6",
+		"wikimedia/client",
 		"wikimedia/jquery",
 		"wikimedia/mediawiki"
 	],
+	"parserOptions": {
+		"sourceType": "commonjs",
+		"ecmaVersion": 2020
+	},
 	"globals": {
 		"ext": "writeable",
 		"ve": "readonly"
 	},
 	"rules": {
+		"es-x/no-array-prototype-includes": "off",
+		"es-x/no-async-functions": "off",
+		"es-x/no-nullish-coalescing-operators": "off",
+		"es-x/no-string-prototype-replaceall": "off",
 		"max-len": "off",
 		"no-prototype-builtins": "off",
 		"mediawiki/no-nodelist-unsupported-methods": "off"
