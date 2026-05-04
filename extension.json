@@ -122,6 +122,10 @@
 				"visualeditorplus-table-contextitem-additional-options-label",
 				"visualeditorplus-table-cell-actions-dialog-title",
 				"visualeditorplus-table-cell-actions-dialog-done-label"
+			],
+			"dependencies": [
+				"ext.visualEditor.core",
+				"oojs-ui"
 			]
 		},
 		"ext.visualEditorPlus.styleInspector": {
