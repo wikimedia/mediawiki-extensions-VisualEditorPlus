@@ -80,7 +80,7 @@ ext.visualEditorPlus.ui.tag.WrapperDefinition.prototype.registerDm = function ()
 	ext.visualEditorPlus.dm[ classname ].static.toDomElements = function ( dataElement, doc ) {
 		const domElement = doc.createElement( definition.containerElementName );
 		domElement.classList.add( 'wrapper-container' );
-		domElement.classList.add( definition.getCSSClassname() ); // eslint-disable-line mediawiki/class-doc
+		domElement.classList.add( definition.getCSSClassname() );
 		for ( const key in dataElement.attributes ) {
 			if ( dataElement.attributes.hasOwnProperty( key ) ) {
 				domElement.setAttribute( 'data-' + key, dataElement.attributes[ key ] );
@@ -110,7 +110,7 @@ ext.visualEditorPlus.ui.tag.WrapperDefinition.prototype.registerCe = function ()
 	ext.visualEditorPlus.ce[ classname ] = function () {
 		ext.visualEditorPlus.ce[ classname ].super.apply( this, arguments );
 		this.$element.addClass( 'wrapper-container' );
-		this.$element.addClass( definition.getCSSClassname() ); // eslint-disable-line mediawiki/class-doc
+		this.$element.addClass( definition.getCSSClassname() );
 
 		this.$header = $( '<div>' )
 			.addClass( 'wrapper-header' )
