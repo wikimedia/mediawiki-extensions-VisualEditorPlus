@@ -12,7 +12,15 @@
 
 		.wrapper-header {
 			cursor: pointer;
-			background-color: #eaeaea;
+			background-color: var( --background-color-interactive, #eaecf0 );
+
+			&:hover {
+				background-color: var( --background-color-interactive--hover, #dadde3 );
+			}
+
+			&:active {
+				background-color: var( --background-color-interactive--active, #c8ccd1 );
+			}
 			position: absolute;
 			top: 0;
 			left: 0;
