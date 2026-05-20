@@ -169,24 +169,23 @@ ext.visualEditorPlus.ui.tag.WrapperDefinition.prototype.registerContextItem = fu
 	ext.visualEditorPlus.ui[ classname ] = function ( context, model, config ) {
 		ext.visualEditorPlus.ui[ classname ].super.call( this, context, model, config );
 
-		this.unwrapButton = new OO.ui.ButtonWidget( {
-			label: ve.msg( 'visualeditorplus-ui-label-unwrap' ),
-			flags: [ 'destructive' ]
-		} );
-		this.unwrapButton.connect( this, { click: 'onUnwrapClick' } );
+		this.icon.toggle( false );
 
 		this.deleteButton = new OO.ui.ButtonWidget( {
-			label: ve.msg( 'visualeditorplus-ui-label-delete' ),
-			flags: [ 'destructive', 'primary' ]
+			icon: 'trash',
+			title: ve.msg( 'visualeditorplus-ui-label-delete' ),
+			framed: false,
+			flags: [ 'destructive' ]
 		} );
 		this.deleteButton.connect( this, { click: 'onDeleteButtonClick' } );
 
-		this.actionButtons.addItems( [ this.unwrapButton, this.deleteButton ] );
+		this.actionButtons.addItems( [ this.deleteButton ] );
 	};
 
 	OO.inheritClass( ext.visualEditorPlus.ui[ classname ], ve.ui.LinearContextItem );
 
 	ext.visualEditorPlus.ui[ classname ].static.name = definition.tagname;
+	ext.visualEditorPlus.ui[ classname ].static.label = definition.description;
 
 	ext.visualEditorPlus.ui[ classname ].static.modelClasses = [
 		ext.visualEditorPlus.dm[ this.getClassname( 'Node' ) ]
