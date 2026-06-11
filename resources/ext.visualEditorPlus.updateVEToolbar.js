@@ -1,6 +1,19 @@
 ( function ( ve ) {
+	function addSuggestedParentType( nodeClassName, parentType ) {
+		const nodeClass = ve.dm[ nodeClassName ];
+		if ( !nodeClass || !nodeClass.static || !Array.isArray( nodeClass.static.suggestedParentNodeTypes ) ) {
+			return;
+		}
+		if ( !nodeClass.static.suggestedParentNodeTypes.includes( parentType ) ) {
+			nodeClass.static.suggestedParentNodeTypes.push( parentType );
+		}
+	}
 
 	mw.hook( 've.activate' ).add( () => {
+		// Allow format conversions like paragraph -> heading inside PageLayouts columns.
+		addSuggestedParentType( 'MWHeadingNode', 'plColumn' );
+		addSuggestedParentType( 'MWPreformattedNode', 'plColumn' );
+
 		// Search for insert group, add plus icon and remove label
 		// ERM40066
 		const groups = ve.init.mw.DesktopArticleTarget.static.toolbarGroups;
