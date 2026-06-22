@@ -19,6 +19,7 @@
 		"es-x/no-nullish-coalescing-operators": "off",
 		"es-x/no-string-prototype-replaceall": "off",
 		"max-len": "off",
+		"no-jquery/no-global-selector": "off",
 		"no-prototype-builtins": "off",
 		"mediawiki/no-nodelist-unsupported-methods": "off",
 		"no-jquery/no-done-fail": "warn"

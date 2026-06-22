@@ -106,6 +106,9 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseUp = function ( e )
 	if ( target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' ) {
 		return;
 	}
+	if ( this.hasOpenPopupOrInspector() ) {
+		return;
+	}
 	if ( !this.selection || ( this.selectedNode && !( this.selectedNode instanceof ve.dm.TextNode ) ) ) {
 		// If some particular node is selected, we don't want to show the inspector, just on plain text
 		return;
@@ -116,6 +119,15 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseUp = function ( e )
 	if ( strLength ) {
 		this.inspect( range, selectedText );
 	}
+};
+
+ext.visualEditorPlus.ui.InlineTextInspector.prototype.hasOpenPopupOrInspector = function () {
+	const $openUi = $( '.ve-ui-inspector.oo-ui-window-open:visible, .oo-ui-window.oo-ui-window-open:visible, .oo-ui-popupWidget:not(.oo-ui-element-hidden):visible, .oo-ui-popupWidget-popup:not(.oo-ui-element-hidden):visible' ); // eslint-disable-line no-jquery/no-sizzle
+
+	return $openUi.filter( ( index, element ) => $( element )
+		.closest( '.ext-visualEditorPlus-inlineTextInspector' )
+		.length === 0
+	).length > 0;
 };
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.onResize = function () {
@@ -160,8 +172,7 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.getDesiredPosition = funct
 };
 
 ext.visualEditorPlus.ui.InlineTextInspector.prototype.getEditorBoundary = function () {
-	// eslint-disable-next-line no-jquery/no-global-selector, no-jquery/variable-pattern
-	const target = $( '.ve-ui-surface' ),
+	const target = $( '.ve-ui-surface' ), // eslint-disable-line no-jquery/variable-pattern
 		offset = target.offset(),
 		width = target.width(),
 		height = target.height();
