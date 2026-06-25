@@ -109,14 +109,21 @@ ext.visualEditorPlus.ui.InlineTextInspector.prototype.onMouseUp = function ( e )
 	if ( this.hasOpenPopupOrInspector() ) {
 		return;
 	}
-	if ( !this.selection || ( this.selectedNode && !( this.selectedNode instanceof ve.dm.TextNode ) ) ) {
+	const selection = this.surfaceModel.getSelection();
+	const selectedNode = this.surfaceModel.getSelectedNode();
+	if ( !( selection instanceof ve.dm.LinearSelection ) || ( selectedNode && !( selectedNode instanceof ve.dm.TextNode ) ) ) {
 		// If some particular node is selected, we don't want to show the inspector, just on plain text
 		return;
 	}
-	const range = this.selection.getRange();
+	const range = selection.getRange();
+	if ( range.isCollapsed() ) {
+		return;
+	}
 	const selectedText = window.getSelection().toString();
 	const strLength = selectedText.trim().length;
 	if ( strLength ) {
+		this.selection = selection;
+		this.selectedNode = selectedNode;
 		this.inspect( range, selectedText );
 	}
 };
