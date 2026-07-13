@@ -163,10 +163,15 @@ ext.visualEditorPlus.ui.tag.Registry.prototype.createInspectorForTag = function 
 			} );
 			this.inspectorForm.render();
 			this.indexLayout.$element.append( this.inspectorForm.$element );
+			// Tab panels are only sized once they become visible, so the dialog
+			// otherwise stays sized to whichever tab happened to be active on first render.
+			this.indexLayout.$element.on( 'click', '.oo-ui-tabOptionWidget', () => {
+				this.updateSize();
+			} );
 			this.updateSize();
 			if ( this.pendingSetValue ) {
 				definition.setValues( this, this.pendingSetValue );
-				this.actions.setAbilities( { done: true } );
+				this.actions.setAbilities( { done: this.inspectorForm.isValid ? this.inspectorForm.isValid() : true } );
 				this.pendingSetValue = null;
 			}
 		} ).fail( ( error ) => {
@@ -186,7 +191,7 @@ ext.visualEditorPlus.ui.tag.Registry.prototype.createInspectorForTag = function 
 					return;
 				}
 				definition.setValues( this, attributes );
-				this.actions.setAbilities( { done: true } );
+				this.actions.setAbilities( { done: this.inspectorForm.isValid ? this.inspectorForm.isValid() : true } );
 			}, this );
 	};
 

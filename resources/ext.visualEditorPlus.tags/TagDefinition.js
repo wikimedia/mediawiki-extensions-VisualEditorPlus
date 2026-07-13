@@ -160,6 +160,9 @@ ext.visualEditorPlus.ui.tag.Definition.prototype.setValues = function ( inspecto
 					console.error( 'Error getting data from form', error ); // eslint-disable-line no-console
 				} );
 				inspector.updateSize();
+				inspector.actions.setAbilities( {
+					done: inspector.inspectorForm.isValid ? inspector.inspectorForm.isValid() : true
+				} );
 			}
 		} );
 	}
