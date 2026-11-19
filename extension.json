@@ -12,13 +12,13 @@
 	},
 	"attributes": {
 		"VisualEditor": {
-			"PluginModules":
-				[
-					"ext.visualEditorPlus.tags",
-					"ext.visualEditorPlus",
-					"ext.visualEditorPlus.inlineTextInspector",
-					"ext.visualEditorPlus.table"
-				]
+			"PluginModules": [
+				"ext.visualEditorPlus.tags",
+				"ext.visualEditorPlus",
+				"ext.visualEditorPlus.inlineTextInspector",
+				"ext.visualEditorPlus.table",
+				"ext.visualEditorPlus.linkInspector.init"
+			]
 		},
 		"CollabPads": {
 			"PluginModules": [
@@ -45,6 +45,29 @@
 			"dependencies": [
 				"oojs",
 				"ext.visualEditorPlus.bootstrap"
+			]
+		},
+		"ext.visualEditorPlus.componentPlugins": {
+			"scripts": [
+				"ext.visualEditorPlus.componentPlugins.js"
+			],
+			"dependencies": [
+				"ext.visualEditorPlus.bootstrap"
+			]
+		},
+		"ext.visualEditorPlus.linkInspector": {
+			"scripts": [
+				"ext.visualEditorPlus.linkInspector/LinkAnnotationInspector.js"
+			],
+			"dependencies": [
+				"ext.visualEditor.mwcore",
+				"ext.visualEditor.mwlink",
+				"ext.visualEditorPlus.componentPlugins"
+			]
+		},
+		"ext.visualEditorPlus.linkInspector.init": {
+			"scripts": [
+				"ext.visualEditorPlus.linkInspector/init.js"
 			]
 		},
 		"ext.visualEditorPlus.inlineTextInspector": {
@@ -154,8 +177,7 @@
 		"localBasePath": "resources",
 		"remoteExtPath": "VisualEditorPlus/resources"
 	},
-	"Hooks": {
-	},
+	"Hooks": {},
 	"manifest_version": 2,
 	"load_composer_autoloader": true
 }
